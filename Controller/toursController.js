@@ -2,18 +2,18 @@ import Tours from "../model/tourSchema.js";
 import User from "../model/Userschema.js"
 
 export const CreateTour = async(req,res)=>{
-    const { email} = req.body;
-   
-
+    const {location,heading,price}=req.body;
+    console.log(location,heading,price)
+    const userid =req.userid;
+    const user = await User.findById(userid)
+    if(!user){
+        return res.status(403).json({success:false,message:"user not found"})
+    }
 
     try {
-        let user= await User.findOne({email:email})
-        console.log( "email is",email)
-        if(!user){
-            return res.status(404).json({success:false,message:"user not found"})
-        }
+       
         const tour = new Tours({
-            img,
+            
             location,
             heading,
             price,
